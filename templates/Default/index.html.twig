@@ -1,0 +1,105 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+{{ include('nav.html.twig') }}
+<!-- Header -->
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div>
+                    <h2>Break to Words</h2>
+<!--
+                    <p>ทดสอบตัดคำภาษาไทย</p>
+                    <h4>to</h4>
+                    <p>ทดสอบ|ตัด|คำ|ภาษา|ไทย</p>
+-->
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-pills" role="tablist">
+                              <li role="presentation" class="active"><a href="#texttab" aria-controls="texttab" role="tab" data-toggle="tab">Text</a></li>
+                              <li role="presentation"><a href="#filetab" aria-controls="filetab" role="tab" data-toggle="tab">Upload File</a></li>
+                            </ul>
+                            <!- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="texttab">
+                                    <p>
+                                        <form name="breaktext">
+                                            <textarea id="inputtext" class="form-control" rows="3" placeholder="ทดสอบตัดคำภาษาไทย">ทดสอบตัดคำภาษาไทย</textarea>
+                                            <br/>
+                                            <div id="outputtext" class="well text-left"></div>
+                                            <button type="button" id="parsebtn" class="btn btn-lg btn-outline"><i class="glyphicon glyphicon-scissors"></i> Parse</button>
+                                            <button type="button" id="copybtn" data-clipboard-target="#outputtext" class="btn btn-lg btn-outline" data-placement="bottom" title="Copied to clipboard"><i class="glyphicon glyphicon-copy"></i> Copy</button>
+                                        </form>
+                                    </p>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="filetab">
+                                    <p>
+                                        <button type="button" id="uploadbtn" class="btn btn-lg btn-outline"><i class="glyphicon glyphicon-floppy-open"></i> Upload</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- /Header -->
+{% endblock %}
+
+{% block script %}
+{{ parent() }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.6.0/clipboard.min.js"></script>
+<script>
+(function() {
+    $("#copybtn").tooltip({
+        trigger: 'click',
+        placement: 'bottom',
+        delay: 300
+    });
+
+    var clipboardbtn = new Clipboard('#copybtn');
+    clipboardbtn.on('success', function(e){
+        e.clearSelection();
+        // console.log(e.trigger);
+        $("#copybtn").tooltip('show');
+        setTimeout(function() {
+            $("#copybtn").tooltip('hide');
+        }, 1200);
+    });
+    $('button#parsebtn').click(function(){
+        console.log("parse");
+        $('#outputtext').text("");
+        var inputtext = $('#inputtext').val();
+        console.log('input:'+inputtext);
+        if (inputtext.length > 0)
+        {
+            $.ajax({
+                url: "/api/breaktowords/"+inputtext,
+                contentType: "application/json; charset=UTF-8"
+            })
+            .done(function( data ) {
+                console.log( "Parsed" );
+                console.log(data);
+                if ("error" in data)
+                {
+                    console.log("error");
+                }
+                else
+                {
+                    $('#outputtext').text(data.output);
+                }
+            });
+        }
+        else
+        {
+            console.log("No input");
+        }
+
+    });
+})();
+</script>
+{% endblock %}
