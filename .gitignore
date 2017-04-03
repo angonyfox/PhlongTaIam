@@ -3,3 +3,4 @@ cache
 logs
 vendor
 config/env/*.env
+public/output
