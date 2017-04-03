@@ -5,4 +5,6 @@ $app->get('/hello/{name}', 'DefaultController:helloAction');
 
 $app->group('/api', function() {
     $this->get('/breaktowords/{text}', 'ApiController:breakIntoWordsAction');
+    $this->get('/breaktowordsdownload', 'ApiController:downloadAction');
+    $this->post('/breaktowordsfile', 'ApiController:breakIntoWordsFileAction');
 });
