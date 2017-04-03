@@ -24,6 +24,30 @@ class DefaultController
         return $this->view->render($response, 'Default/index.html.twig', $args);
     }
 
+    public function datadictAction(RequestInterface $request, ResponseInterface $response, $args)
+    {
+        $dictpath = APP_ROOT . "/data/tdict-std.txt";
+        // $dictpath = APP_ROOT . "/data/test_dict.txt";
+
+        if ($request->isPost())
+        {
+            $words = $request->getParam('datadict');
+            $wordsarr = explode("\n", $words);
+            $wordsarr = array_filter($wordsarr, 'trim');
+            // Remove Duplicate
+            $wordsarr = array_unique($wordsarr);
+            // Sort
+            natcasesort($wordsarr);
+            $contents = implode(PHP_EOL, $wordsarr);
+            file_put_contents($dictpath, $contents);
+        }
+        $dict = file($dictpath);
+
+        return $this->view->render($response, 'Default/datadict.html.twig', [
+            'dict' => $dict
+        ]);
+    }
+
     public function helloAction(RequestInterface $request, ResponseInterface $response, $args)
     {
         $name = $request->getAttribute('name');

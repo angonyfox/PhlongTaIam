@@ -1,0 +1,39 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+{{ include('nav.html.twig') }}
+<!-- Header -->
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div>
+                    <h2>Data Dict</h2>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <form action="/datadict" method="POST">
+                                <textarea name="datadict" class="form-control" rows="15">{% for word in dict %}{{ word }}{% endfor %}</textarea>
+                                <button type="submit" id="savebtn" class="btn btn-lg btn-outline"><i class="glyphicon glyphicon-floppy-save"></i> Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- /Header -->
+{% endblock %}
+
+{% block script %}
+{{ parent() }}
+<!--
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.6.0/clipboard.min.js"></script>
+<script src="assets/vendor/bootstrap-fileinput/js/fileinput.min.js"></script>
+-->
+<script>
+(function() {
+
+})();
+</script>
+{% endblock %}
