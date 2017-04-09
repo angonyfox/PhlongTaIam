@@ -21,6 +21,7 @@
                             <ul class="nav nav-pills" role="tablist">
                               <li role="presentation" class="active"><a href="#texttab" aria-controls="texttab" role="tab" data-toggle="tab">Text</a></li>
                               <li role="presentation"><a href="#filetab" aria-controls="filetab" role="tab" data-toggle="tab">Upload File</a></li>
+                              <li role="presentation"><a href="#apitab" aria-controls="apitab" role="tab" data-toggle="tab">API</a></li>
                             </ul>
                             <!- Tab panes -->
                             <div class="tab-content">
@@ -41,6 +42,14 @@
                                         <input id="uploadfileinput" type="file" class="file" data-show-preview="false" data-allowed-file-extensions='["csv", "txt"]' data-upload-url="/api/breaktowordsfile">
                                         <a href="/api/breaktowordsdownload"><button type="button" id="downloadbtn" class="btn btn-lg btn-outline"><i class="glyphicon glyphicon-floppy-save"></i> Download Result</button></a>
                                     </p>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="apitab">
+                                    <h4 class="text-left">Example API call with curl</h4>
+                                    <div class="well text-left">
+                                        curl -H "Content-Type: application/json" "http://&lt;host>:&lt;port>/api/breaktowords/&lt;words>"
+                                        <br/><br/>
+                                        {"output":"&lt;break words>"}
+                                    </div>
                                 </div>
                             </div>
                         </div>
