@@ -57,7 +57,7 @@ class ApiController
         $this->logger->addInfo("File:".$_FILES['file_data']['name']);
         $this->logger->addInfo("TempFile:".$_FILES['file_data']['tmp_name']);
         $fhandler = fopen($_FILES['file_data']['tmp_name'], 'r');
-        $outputfile = fopen(APP_ROOT."/public/output/output.csv","w");
+        $outputfile = fopen(APP_ROOT."/output/output.csv","w");
         while (($data = fgetcsv($fhandler)) !== FALSE )
         {
             $splittextarr = $this->wordbreaker->breakIntoWords($data[0]);
@@ -79,7 +79,7 @@ class ApiController
 
     public function downloadAction(RequestInterface $request, ResponseInterface $response, $args)
     {
-        $file = APP_ROOT."/public/output/output.csv";
+        $file = APP_ROOT."/output/output.csv";
         $fh = fopen($file, 'rb');
 
         $stream = new \Slim\Http\Stream($fh); // create a stream instance for the response body
