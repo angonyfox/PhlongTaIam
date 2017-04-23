@@ -9,6 +9,7 @@ if (PHP_SAPI == 'cli-server') {
 }
 
 session_start();
+error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
 
 // Instantiate the app
 $app = require __DIR__ . '/../src/bootstrap.php';

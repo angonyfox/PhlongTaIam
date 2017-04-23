@@ -1,4 +1,4 @@
-<?
+<?php
 $container = $app->getContainer();
 $container['logger'] = function($c) {
     $settings = $c->get('settings')['logger'];

@@ -1,4 +1,4 @@
-<?
+<?php
 $app->get('/', 'DefaultController:indexAction');
 $app->map(['GET', 'POST'], '/datadict', 'DefaultController:datadictAction');
 $app->get('/hello/{name}', 'DefaultController:helloAction');
